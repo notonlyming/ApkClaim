@@ -26,7 +26,9 @@ with open('namePrintInfo.txt', 'r', encoding='utf-8') as f:
 # 过滤得到所有用户目录app，即假设package:/data/app/下的是用户app。过滤完毕后去掉开头的package:
 allUsrAppPaths = list(map(lambda line: line.split(':')[1], filter(lambda line: line.startswith('package:/data/app/'), allOutputLines)))
 # 将包名提出来，组成字典，方便重命名默认为base.apk的apk文件
-allUsrAppPathsDict = dict(zip(map(lambda path: path.split('/')[3].split('-')[0], allUsrAppPaths), allUsrAppPaths))
+allUsrAppPathsDict = dict(zip(
+        map(lambda path: path.split('/')[-2].split('-')[0], allUsrAppPaths),
+    allUsrAppPaths))
 
 for packageName in allUsrAppPathsDict:
     if not os.path.exists('apk'):
